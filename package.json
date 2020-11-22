@@ -1,0 +1,50 @@
+{
+  "name": "ui-router-react-digest",
+  "title": "UI-Router React Digest",
+  "version": "0.1.0",
+  "description": "An autogenerating route component",
+  "author": "wallzero @wallzeroblog (http://wallzero.com)",
+  "contributors": [
+    {
+      "name": "Connor Schlesiger",
+      "email": "connor@schlesiger.ca",
+      "position": "Initial and Lead Developer"
+    }
+  ],
+  "main": "src/index.jsx",
+  "homepage": "https://gitlab.com/wallzero/ui-router-react-digest",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/wallzero/ui-router-react-digest.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/wallzero/ui-router-react-digest/issues"
+  },
+  "scripts": {
+    "start:demo": "cross-env NODE_ENV=production NODE_PATH=. PLATFORMS='react' PORT=8080 SRC_PATH='demo' node node_modules/webpack-digest/src/app.js",
+    "start:demo:dev": "cross-env NODE_ENV=development NODE_PATH=. PLATFORMS='react' PORT=8090 SRC_PATH='demo' node node_modules/webpack-digest/src/app.js",
+    "build:demo": "cross-env NODE_ENV=production NODE_PATH=. PLATFORMS='react' SRC_PATH='demo' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
+    "build:demo:dev": "cross-env NODE_ENV=development NODE_PATH=. PLATFORMS='react' SRC_PATH='demo' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
+    "clean": "rm -rf static && rm -rf .cache"
+  },
+  "devDependencies": {
+    "webpack-digest": "file:/home/connor/Development/Git/webpack-digest"
+  },
+  "dependencies": {
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "ui-router-react": "0.4.0",
+    "ui-router-core": "4.0.0",
+    "ui-router-visualizer": "2.0.11",
+    "react-motion": "0.4.7",
+    "react-swipeable-views": "0.10.3",
+    "material-ui": "0.16.7",
+    "react-tap-event-plugin": "2.0.1"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "ui-router",
+    "ui-router-react"
+  ]
+}

@@ -1,0 +1,11 @@
+.swipe {
+  min-height: '100%';
+}
+.drawer {
+  height: 0;
+  overflow-y: hidden;
+}
+.currentDrawer {
+  height: auto;
+  overflow-y: auto;
+}
