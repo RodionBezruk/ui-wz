@@ -28,7 +28,7 @@
     "clean": "rm -rf static && rm -rf .cache"
   },
   "devDependencies": {
-    "webpack-digest": "file:/home/connor/Development/Git/webpack-digest"
+    "webpack-digest": "0.3.23"
   },
   "dependencies": {
     "react": "15.4.2",
