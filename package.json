@@ -30,7 +30,7 @@
     "clean": "rm -rf static && rm -rf .cache"
   },
   "devDependencies": {
-    "webpack-digest": "0.3.24"
+    "webpack-digest": "0.3.23"
   },
   "dependencies": {
     "react": "15.4.2",
