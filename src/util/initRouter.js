@@ -68,9 +68,9 @@ export const initTransitions = (shortName, tabs, tabIndex, whenTabChange) => (ro
   );
   router.urlRouter.otherwise(() => {
     if (tabs[tabIndex]) {
-      return `/${tabs[tabIndex].name}`;
+      return `${tabs[tabIndex].name}`;
     } else {
-      return `/${tabs[0].name}`;
+      return `${tabs[0].name}`;
     }
   });
 };
