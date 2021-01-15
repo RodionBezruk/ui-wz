@@ -41,7 +41,7 @@ export const initTab = (tab, shortName, drawers) => {
   });
   return {
     name: `${shortName}.tabs.${tab.name}`,
-    url: `${tab.name}`,
+    url: `/${tab.name}`,
     views: route,
     params: {
       name: tab.name,
