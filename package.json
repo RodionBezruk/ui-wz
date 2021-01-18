@@ -1,6 +1,7 @@
 {
   "name": "ui-router-react-digest",
   "title": "UI-Router React Digest",
+  "license": "GPL-3.0",
   "version": "0.1.0",
   "description": "An autogenerating route component",
   "author": "wallzero @wallzeroblog (http://wallzero.com)",
