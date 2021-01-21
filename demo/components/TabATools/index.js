@@ -4,11 +4,11 @@ const styles = {
     margin: 20
   }
 };
-const Settings = () => {
+const TabATools = () => {
   return (
     <div style={styles.container}>
-      <h4>Preferences</h4>
+      <h4>Tab A Tools</h4>
     </div>
   );
 };
-export default Settings;
+export default TabATools;

@@ -2,35 +2,37 @@ import React, {PropTypes} from 'react';
 import {UIView} from 'ui-router-react';
 import './App.css';
 import Drawers from '../Drawers';
-const App = ({style: state}) => (
-  <div styleName='content'>
-    <UIView
-      name='header'
-      className='onlyForProps'
-      style={state}
-    />
-    <div styleName='main'>
-      <Drawers
-        open={state.drawerOpen}
-        orientation={state.orientation}
-        drag={state.drawerDrag}
-        docked={state.drawerDocked}
-        hover={state.drawerHover}
-        toggle={state.whenDrawerToggle}
-        tabs={state.tabs}
-        currentTab={state.tabIndex}
-        drawers={state.drawers}
-        currentDrawer={state.drawerIndex}
-        selectDrawer={state.whenDrawerChange}
-      />
+const App = ({style: state}) => {
+  return (
+    <div styleName='content'>
       <UIView
-        name='tabs'
         className='onlyForProps'
+        name='header'
         style={state}
       />
+      <div styleName='main'>
+        <Drawers
+          currentDrawer={state.drawerIndex}
+          currentTab={state.tabIndex}
+          docked={state.drawerDocked}
+          drag={state.drawerDrag}
+          drawers={state.drawers}
+          hover={state.drawerHover}
+          open={state.drawerOpen}
+          orientation={state.orientation}
+          selectDrawer={state.whenDrawerChange}
+          tabs={state.tabs}
+          toggle={state.whenDrawerToggle}
+        />
+        <UIView
+          className='onlyForProps'
+          name='tabs'
+          style={state}
+        />
+      </div>
     </div>
-  </div>
-)
+  );
+};
 App.propTypes = {
   style: PropTypes.object.isRequired
 };

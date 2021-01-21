@@ -1,25 +1,34 @@
 import React, {PropTypes} from 'react';
 import './TabBar.css';
-const TabBar = ({tabs, onTabClick}) => (
-  <span>
-    {
-      tabs.map((tab, index) => (
-        <button
-          styleName='button'
-          key={index}
-          onClick={()=>(onTabClick(index))}
-        >
-          {tab.params.title ? tab.params.title : tab.name.replace('_', ' ')}
-        </button>
-      ))
-    }
-  </span>
-);
+const TabBar = ({onTabClick, tabs}) => {
+  return (
+    <span>
+      {
+        tabs.map((tab, index) => {
+          return (
+            <button
+              key={tab.name}
+              onClick={function () {
+                onTabClick(index);
+              }}
+              styleName='button'
+            >
+              {
+                tab.params.title ?
+                tab.params.title :
+                tab.name.replace('_', ' ')
+              }
+            </button>
+          );
+        })
+      }
+    </span>
+  );
+};
 TabBar.propTypes = {
+  onTabClick: PropTypes.func.isRequired,
   tabs: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
-  }).isRequired).isRequired,
-  currentTab: PropTypes.number.isRequired,
-  onTabClick: PropTypes.func.isRequired
-}
+  }).isRequired).isRequired
+};
 export default TabBar;

@@ -1,13 +1,13 @@
 import {version} from '../package.json';
 export default {
-  version,
-  title: "Digest",
-  shortName: "root",
-  tabIndex: 0,
+  drawerDocked: true,
+  drawerDrag: true,
+  drawerHover: false,
   drawerIndex: 0,
   drawerOpen: true,
-  drawerDocked: true,
-  drawerHover: false,
-  drawerDrag: true,
-  orientation: 'left'
-}
+  orientation: 'left',
+  shortName: 'root',
+  tabIndex: 0,
+  title: 'Digest',
+  version
+};

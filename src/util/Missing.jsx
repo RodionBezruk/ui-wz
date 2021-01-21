@@ -1,4 +1,8 @@
 import React from 'react';
-export default () => (
-  <span><i className="fa fa-times-circle"></i> Missing Template</span>
-);
+export default () => {
+  return (
+    <span>
+      <i className='fa fa-times-circle' /> Missing Template
+    </span>
+  );
+};

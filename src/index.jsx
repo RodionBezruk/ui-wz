@@ -1,34 +1,46 @@
 import React, {Component, PropTypes} from 'react';
-import {
-  UIRouter,
-  UIView,
-  servicesPlugin,
-  pushStateLocationPlugin
-} from 'ui-router-react';
-import {initRoot, initTab, initTransitions} from './util/initRouter';
-import defaults from './defaults';
+import {UIRouter, UIView, servicesPlugin, pushStateLocationPlugin} from 'ui-router-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import {initRoot, initTab, initTransitions} from './util/initRouter';
+import defaults from './defaults';
 let defaultRouter;
-export default class CSUI extends Component {
+export default class src extends Component {
   static propTypes = {
-    version: PropTypes.string,
-    shortName: PropTypes.string,
-    tabs: PropTypes.array.isRequired,
-    tabIndex: PropTypes.number,
-    onTabChange: PropTypes.func,
-    drawers: PropTypes.array.isRequired,
-    drawerIndex: PropTypes.number,
-    ondrawerChange: PropTypes.func,
-    ondrawerToggle: PropTypes.func,
-    drawerOpen: PropTypes.bool,
     drawerDocked: PropTypes.bool,
-    drawerHover: PropTypes.bool,
     drawerDrag: PropTypes.bool,
+    drawerHover: PropTypes.bool,
+    drawerIndex: PropTypes.number,
+    drawerOpen: PropTypes.bool,
+    drawers: PropTypes.array.isRequired,
+    header: PropTypes.func,
+    onDrawerChange: PropTypes.func,
+    onDrawerToggle: PropTypes.func,
+    onTabChange: PropTypes.func,
     orientation: PropTypes.string,
-    header: PropTypes.func
+    shortName: PropTypes.string,
+    tabIndex: PropTypes.number,
+    tabs: PropTypes.array.isRequired,
+    title: PropTypes.string,
+    version: PropTypes.string
   }
-  constructor(props) {
+  static defaultProps = {
+    drawerDocked: defaults.drawerDocked,
+    drawerDrag: defaults.drawerDrag,
+    drawerHover: defaults.drawerHover,
+    drawerIndex: defaults.drawerIndex,
+    drawerOpen: defaults.drawerOpen,
+    header: defaults.appHeader,
+    onDrawerChange: defaults.onDrawerChange,
+    onDrawerToggle: defaults.onDrawerToggle,
+    onTabChange: defaults.onTabChange,
+    orientation: defaults.orientation,
+    shortName: defaults.shortName,
+    tabIndex: defaults.tabIndex,
+    title: defaults.title,
+    version: defaults.version
+  }
+  constructor (props) {
     super(props);
     this.whenTabChange = this.whenTabChange.bind(this);
     this.whenDrawerChange = this.whenDrawerChange.bind(this);
@@ -38,81 +50,64 @@ export default class CSUI extends Component {
       injectTapEventPlugin.init = !injectTapEventPlugin.init;
     }
     this.state = {
-      title: this.props.title || defaults.title,
-      version: this.props.version || defaults.version,
-      shortName: this.props.shortName  || defaults.shortName,
-      header: this.props.header || defaults.appHeader,
-      tabs: this.props.tabs || defaults.tabs,
-      tabIndex: this.props.tabIndex || defaults.tabIndex,
-      whenTabChange: this.whenTabChange,
-      drawers: this.props.drawers || defaults.drawers,
-      drawerIndex: this.props.drawerIndex || defaults.drawerIndex,
+      drawerDocked: this.props.drawerDocked,
+      drawerDrag: this.props.drawerDrag,
+      drawerHover: this.props.drawerHover,
+      drawerIndex: this.props.drawerIndex,
+      drawerOpen: this.props.drawerOpen,
+      drawers: this.props.drawers,
+      header: this.props.header,
+      orientation: this.props.orientation,
+      shortName: this.props.shortName,
+      tabIndex: this.props.tabIndex,
+      tabs: this.props.tabs,
+      title: this.props.title,
+      version: this.props.version,
       whenDrawerChange: this.whenDrawerChange,
-      drawerOpen: this.props.drawerOpen || defaults.drawerOpen,
       whenDrawerToggle: this.whenDrawerToggle,
-      drawerDocked: this.props.drawerDocked || defaults.drawerDocked,
-      drawerHover: this.props.drawerHover || defaults.drawerHover,
-      drawerDrag: this.props.drawerDrag || defaults.drawerDrag,
-      orientation: this.props.orientation || defaults.orientation
-    }
+      whenTabChange: this.whenTabChange
+    };
     this.states = [
-      ...initRoot(
-        this.state.shortName,
-        this.state.drawers,
-        this.state.header,
-        this.state.drawerHeader
-      ),
-      ...this.state.tabs.map((tab) => (initTab(
-        tab,
-        this.state.shortName,
-        this.state.drawers
-      )))
+      ...initRoot(this.state.shortName, this.state.drawers, this.state.header, this.state.drawerHeader),
+      ...this.state.tabs.map((tab) => {
+        return initTab(tab, this.state.shortName, this.state.drawers);
+      })
     ];
-    this.config = initTransitions(
-      this.state.shortName,
-      this.state.tabs,
-      this.state.tabIndex,
-      this.state.whenTabChange
-    );
-    this.plugins = [
-      servicesPlugin,
-      pushStateLocationPlugin
-    ]
+    this.config = initTransitions(this.state.shortName, this.state.tabs, this.state.tabIndex, this.state.whenTabChange);
+    this.plugins = [servicesPlugin, pushStateLocationPlugin];
   }
-  componentDidUpdate(prevProps) {
-    if (prevProps.tabs.length !== prevProps.tabs.length) {
-      console.log('modify tabs');
-    }
-  }
-  whenTabChange(tabIndex = 0, route = true, router = defaultRouter) {
+  whenTabChange (tabIndex = 0, route = true, router = defaultRouter) {
     if (route) {
-      router.stateService
-        .go(`${this.state.shortName}.tabs.${this.state.tabs[tabIndex].name}`);
+      router.stateService.go(this.state.shortName + '.tabs.' + this.state.tabs[tabIndex].name);
     }
-    tabIndex !== this.state.tabIndex && this.setState({tabIndex});
+    if (tabIndex !== this.state.tabIndex) {
+      this.setState({tabIndex}); 
+    }
+    this.props.onTabChange(tabIndex);
   }
-  whenDrawerChange(drawerIndex = 0) {
-    this.setState({drawerIndex});
+  whenDrawerChange (drawerIndex = 0) {
+    this.setState({drawerIndex}); 
+    this.props.onDrawerChange(drawerIndex);
   }
-  whenDrawerToggle(drawerOpen) {
-    drawerOpen = drawerOpen || !this.state.drawerOpen
-    this.setState({drawerOpen});
+  whenDrawerToggle (drawerOpen) {
+    this.setState({drawerOpen: drawerOpen || !this.state.drawerOpen});  
+    this.props.onDrawerToggle(drawerOpen || !this.state.drawerOpen);
   }
-  render() {
-    return(
+  render () {
+    return (
       <MuiThemeProvider>
         <UIRouter
-          states={this.states}
-          config={(router)=>{
-            defaultRouter=router;
-            this.config(router);
+          config={(router) => {
+            defaultRouter = router;
+            this.config(router);  
           }}
           plugins={this.plugins}
+          states={this.states}
         >
           <UIView
-            test="testProp"
-            className="onlyForProps"
+            className='onlyForProps'
             style={this.state}
+            test='testProp'
           />
         </UIRouter>
       </MuiThemeProvider>

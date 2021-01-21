@@ -1,43 +1,43 @@
 import {title, version} from '../package.json';
-import Tab1 from './components/Tab1';
-import Tab1Tools from './components/Tab1Tools';
-import Tab2 from './components/Tab2';
-import Tab2Tools from './components/Tab2Tools';
+import TabA from './components/TabA';
+import TabATools from './components/TabATools';
+import TabB from './components/TabB';
+import TabBTools from './components/TabBTools';
 import Settings from './components/Settings';
 export default {
-  shortName: "CSUI",
-	title,
-	version,
-	drawers: [{
-		name: "tools",
-		contextual: true,
+  drawers: [{
+    contextual: true,
+    name: 'tools',
     params: {
-      title: "Tools"
+      title: 'Tools'
     }
-	},{
-		name: "settings",
-		component: Settings,
+  }, {
+    component: Settings,
+    name: 'settings',
     params: {
-      title: "Settings"
+      title: 'Settings'
     }
-	}],
-	tabs: [{
-		name: "tab1",
-		component: Tab1,
-		drawers: {
-			tools: Tab1Tools
-		},
+  }],
+  shortName: 'CSUI',
+  tabs: [{
+    component: TabA,
+    drawers: {
+      tools: TabATools
+    },
+    name: 'TabA',
     params: {
-      title: "Tab 1"
+      title: 'Tab 1'
     }
-	},{
-		name: "tab2",
-		component: Tab2,
-		drawers: {
-			tools: Tab2Tools
-		},
+  }, {
+    component: TabB,
+    drawers: {
+      tools: TabBTools
+    },
+    name: 'TabB',
     params: {
-      title: "Tab 2"
+      title: 'Tab 2'
     }
-	}]
-}
+  }],
+  title,
+  version
+};

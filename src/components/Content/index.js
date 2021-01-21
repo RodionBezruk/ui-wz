@@ -1,38 +1,43 @@
 import React, {PropTypes} from 'react';
-import SwipeableViews from 'react-swipeable-views'
+import SwipeableViews from 'react-swipeable-views';
 import {UIView} from 'ui-router-react';
 const Content = ({style: state}) => {
   const styles = {
-    view: {
-      height: '100%',
-      flex: 1
-    },
     container: {
-      height: '100%',
-      direction: state.orientation === 'left' ? 'ltr' : 'rtl'
+      direction: state.orientation === 'left' ? 'ltr' : 'rtl',
+      height: '100%'
     },
     content: {
-      height: '100%',
-      direction: 'ltr'
+      direction: 'ltr',
+      height: '100%'
+    },
+    view: {
+      flex: 1,
+      height: '100%'
     }
   };
   return (
     <div style={styles.view}>
       <SwipeableViews
-        style={styles.container}
         containerStyle={styles.content}
         index={state.tabIndex}
-        onChangeIndex={(index)=>(state.whenTabChange(index))}>
-        {state.tabs.map((tab, index) => (
-          <UIView
-            key={index}
-            name={tab.name}
-          />
-        ))}
+        onChangeIndex={function (index) {
+          state.whenTabChange(index);
+        }}
+        style={styles.container}
+      >
+        {state.tabs.map((tab) => {
+          return (
+            <UIView
+              key={tab.name}
+              name={tab.name}
+            />
+          );
+        })}
       </SwipeableViews>
     </div>
   );
-}
+};
 Content.propTypes = {
   style: PropTypes.object.isRequired
 };

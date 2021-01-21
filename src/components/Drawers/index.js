@@ -3,43 +3,43 @@ import {UIView} from 'ui-router-react';
 import Drawer from 'material-ui/Drawer';
 import DrawerContent from './DrawerContent';
 const Drawers = ({
+  currentDrawer,
+  currentTab,
+  docked,
+  drag,
+  drawers,
+  hover,
   open,
   orientation,
-  drag,
-  docked,
-  hover,
-  toggle,
+  selectDrawer,
   tabs,
-  currentTab,
-  drawers,
-  currentDrawer,
-  selectDrawer
+  toggle
 }) => {
   const styles = {
     drawer: {
       height: '100%',
-      width: open ? 320 : 0,
       order: orientation === 'right' ? 999 : 0,
-      transition: 'width 0.450s cubic-bezier(0.23, 1, 0.32, 1) 0ms',
       position: hover ? 'absolute' : 'relative',
-      right: hover && orientation === 'right' ? 0 : 'initial'
+      right: hover && orientation === 'right' ? 0 : 'initial',
+      transition: 'width 0.450s cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+      width: open ? 320 : 0
     },
     drawerContainer: {
-      top: 'auto',
-      zIndex: 1500,
-      position: 'relative',
-      overflow: 'initial',
       display: 'flex',
-      flexDirection: 'column'
-    },
-    drawerDirection: {
-      flex: 1,
-      overflowY: 'auto',
-      direction: orientation === 'right' ? 'ltr' : 'rtl'
+      flexDirection: 'column',
+      overflow: 'initial',
+      position: 'relative',
+      top: 'auto',
+      zIndex: 1500
     },
     drawerContent: {
       direction: 'ltr',
       height: '100%'
+    },
+    drawerDirection: {
+      direction: orientation === 'right' ? 'ltr' : 'rtl',
+      flex: 1,
+      overflowY: 'auto'
     },
     overlay: {
       backgroundColor: 'rgba(255,255,255,0)'
@@ -47,50 +47,56 @@ const Drawers = ({
   };
   return (
     <Drawer
-      open={open}
-      style={styles.drawer}
       containerStyle={styles.drawerContainer}
-      openSecondary={orientation === 'right'}
-      width={320}
-      docked={docked}
       disableSwipeToOpen={!drag}
-      onRequestChange={() => (toggle())}
+      docked={docked}
+      onRequestChange={function () {
+        toggle();
+      }}
+      open={open}
+      openSecondary={orientation === 'right'}
       overlayStyle={styles.overlay}
+      style={styles.drawer}
+      width={320}
     >
       <UIView
-        name="drawerHeader"
-        className="onlyForProps"
-        style={{drawers, currentDrawer, onTabClick: selectDrawer}}
+        className='onlyForProps'
+        name='drawerHeader'
+        style={{
+          currentDrawer,
+          drawers,
+          onTabClick: selectDrawer
+        }}
       />
       <div style={styles.drawerDirection}>
         <div style={styles.drawerContent}>
           <DrawerContent
-            tabs={tabs}
+            currentDrawer={currentDrawer}
             currentTab={currentTab}
             drawers={drawers}
-            currentDrawer={currentDrawer}
             onSwipe={selectDrawer}
+            tabs={tabs}
           />
         </div>
       </div>
     </Drawer>
-  )
-}
+  );
+};
 Drawers.propTypes = {
-  open: PropTypes.bool,
-  orientation: PropTypes.string,
-  drag: PropTypes.bool,
-  docked: PropTypes.bool,
-  hover: PropTypes.bool,
-  toggle: PropTypes.func,
-  tabs: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired
-  }).isRequired).isRequired,
+  currentDrawer: PropTypes.number.isRequired,
   currentTab: PropTypes.number.isRequired,
+  docked: PropTypes.bool.isRequired,
+  drag: PropTypes.bool.isRequired,
   drawers: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired).isRequired,
-  currentDrawer: PropTypes.number.isRequired,
-  selectDrawer: PropTypes.func.isRequired
-}
+  hover: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired,
+  orientation: PropTypes.string.isRequired,
+  selectDrawer: PropTypes.func.isRequired,
+  tabs: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired).isRequired,
+  toggle: PropTypes.func.isRequired
+};
 export default Drawers;

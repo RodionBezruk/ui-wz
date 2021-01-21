@@ -22,24 +22,24 @@
     "url": "https://gitlab.com/wallzero/ui-router-react-digest/issues"
   },
   "scripts": {
-    "start:demo": "cross-env NODE_ENV=production NODE_PATH=. PLATFORMS='react' PORT=8080 SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack-digest/src/app.js",
-    "start:demo:dev": "cross-env NODE_ENV=development NODE_PATH=. PLATFORMS='react' PORT=8090 SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack-digest/src/app.js",
-    "start:demo:gitlab": "cross-env NODE_ENV=production NODE_PATH=. PLATFORMS='react' PORT=8080 SRC_PATH='demo' STATIC_PATH='public' INDEX='demo/index.gitlab.htm' node node_modules/webpack-digest/src/app.js",
-    "start:demo:dev:gitlab": "cross-env NODE_ENV=development NODE_PATH=. PLATFORMS='react' PORT=8090 SRC_PATH='demo' STATIC_PATH='public' INDEX='demo/index.gitlab.htm' node node_modules/webpack-digest/src/app.js",
-    "build:demo": "cross-env NODE_ENV=production NODE_PATH=. PLATFORMS='react' SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
-    "build:demo:dev": "cross-env NODE_ENV=development NODE_PATH=. PLATFORMS='react' SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
-    "build:demo:gitlab": "cross-env NODE_ENV=production NODE_PATH=. PLATFORMS='react' SRC_PATH='demo' STATIC_PATH='public' INDEX='demo/index.gitlab.htm' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
+    "start:demo": "cross-env NODE_PATH=. PLATFORMS='react,cssModules' SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack-digest/src/app.js",
+    "start:demo:dev": "cross-env NODE_PATH=. NODE_ENV=development PLATFORMS='react,cssModules' PORT=8090 SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack-digest/src/app.js",
+    "start:demo:gitlab": "cross-env NODE_PATH=. PLATFORMS='react,cssModules' SRC_PATH='demo' STATIC_PATH='public' INDEX='demo/index.gitlab.htm' node node_modules/webpack-digest/src/app.js",
+    "start:demo:dev:gitlab": "cross-env NODE_PATH=. NODE_ENV=development PLATFORMS='react,cssModules' PORT=8090 SRC_PATH='demo' STATIC_PATH='public' INDEX='demo/index.gitlab.htm' node node_modules/webpack-digest/src/app.js",
+    "build:demo": "cross-env NODE_PATH=. PLATFORMS='react,cssModules' SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
+    "build:demo:dev": "cross-env NODE_PATH=. NODE_ENV=development PLATFORMS='react,cssModules' SRC_PATH='demo' STATIC_PATH='public' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
+    "build:demo:gitlab": "cross-env NODE_PATH=. PLATFORMS='react,cssModules' SRC_PATH='demo' STATIC_PATH='public' INDEX='demo/index.gitlab.htm' node node_modules/webpack/bin/webpack.js --config node_modules/webpack-digest/src/webpack.config.js --progress --colors --display-error-details",
     "clean": "rm -rf static && rm -rf .cache"
   },
   "devDependencies": {
-    "webpack-digest": "0.3.23"
+    "webpack-digest": "0.3.30",
+    "ui-router-visualizer": "2.0.11"
   },
   "dependencies": {
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "ui-router-react": "0.4.0",
     "ui-router-core": "4.0.0",
-    "ui-router-visualizer": "2.0.11",
     "react-motion": "0.4.7",
     "react-swipeable-views": "0.10.3",
     "material-ui": "0.16.7",
