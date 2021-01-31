@@ -24,18 +24,18 @@ export default {
     drawers: {
       tools: TabATools
     },
-    name: 'TabA',
+    name: 'taba',
     params: {
-      title: 'Tab 1'
+      title: 'Tab A'
     }
   }, {
     component: TabB,
     drawers: {
       tools: TabBTools
     },
-    name: 'TabB',
+    name: 'tabb',
     params: {
-      title: 'Tab 2'
+      title: 'Tab B'
     }
   }],
   title,

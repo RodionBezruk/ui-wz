@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import './Auxiliar.css';
 const Auxiliar = ({children, orientation}) => {
   return (
-    <span styleName={'.' + orientation}>
+    <span styleName={orientation}>
       {children}
     </span>
   );
