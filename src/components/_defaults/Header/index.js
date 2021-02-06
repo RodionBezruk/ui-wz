@@ -20,8 +20,8 @@ const Header = ({
         />
         <TabBar
           currentTab={state.tabIndex}
-          onTabClick={function () {
-            state.whenTabChange();
+          onTabClick={function (index) {
+            state.whenTabChange(index);
           }}
           tabs={state.tabs}
         />

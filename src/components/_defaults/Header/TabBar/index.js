@@ -8,7 +8,7 @@ const TabBar = ({onTabClick, tabs}) => {
           return (
             <button
               key={tab.name}
-              onClick={function () {
+              onClick={function handleClick () {
                 onTabClick(index);
               }}
               styleName='button'
