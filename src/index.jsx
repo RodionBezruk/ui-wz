@@ -14,9 +14,9 @@ export default class src extends Component {
     drawerOpen: PropTypes.bool,
     drawers: PropTypes.array.isRequired,
     header: PropTypes.func,
-    onDrawerChange: PropTypes.func,
+    onDrawerSelect: PropTypes.func,
     onDrawerToggle: PropTypes.func,
-    onTabChange: PropTypes.func,
+    onTabSelect: PropTypes.func,
     orientation: PropTypes.string,
     shortName: PropTypes.string,
     tabIndex: PropTypes.number,
@@ -31,9 +31,9 @@ export default class src extends Component {
     drawerIndex: defaults.drawerIndex,
     drawerOpen: defaults.drawerOpen,
     header: defaults.appHeader,
-    onDrawerChange: defaults.onDrawerChange,
+    onDrawerSelect: defaults.onDrawerSelect,
     onDrawerToggle: defaults.onDrawerToggle,
-    onTabChange: defaults.onTabChange,
+    onTabSelect: defaults.onTabSelect,
     orientation: defaults.orientation,
     shortName: defaults.shortName,
     tabIndex: defaults.tabIndex,
@@ -42,9 +42,9 @@ export default class src extends Component {
   }
   constructor (props) {
     super(props);
-    this.whenTabChange = this.whenTabChange.bind(this);
-    this.whenDrawerChange = this.whenDrawerChange.bind(this);
+    this.whenDrawerSelect = this.whenDrawerSelect.bind(this);
     this.whenDrawerToggle = this.whenDrawerToggle.bind(this);
+    this.whenTabSelect = this.whenTabSelect.bind(this);
     if (!injectTapEventPlugin.init) {
       injectTapEventPlugin();
       injectTapEventPlugin.init = !injectTapEventPlugin.init;
@@ -63,35 +63,45 @@ export default class src extends Component {
       tabs: this.props.tabs,
       title: this.props.title,
       version: this.props.version,
-      whenDrawerChange: this.whenDrawerChange,
+      whenDrawerSelect: this.whenDrawerSelect,
       whenDrawerToggle: this.whenDrawerToggle,
-      whenTabChange: this.whenTabChange
+      whenTabSelect: this.whenTabSelect
     };
     this.states = [
-      ...initRoot(this.state.shortName, this.state.drawers, this.state.header, this.state.drawerHeader),
+      ...initRoot(
+        this.state.shortName,
+        this.state.drawers,
+        this.state.header,
+        this.state.drawerHeader
+      ),
       ...this.state.tabs.map((tab) => {
         return initTab(tab, this.state.shortName, this.state.drawers);
       })
     ];
-    this.config = initTransitions(this.state.shortName, this.state.tabs, this.state.tabIndex, this.state.whenTabChange);
+    this.config = initTransitions(
+      this.state.shortName,
+      this.state.tabs,
+      this.state.tabIndex,
+      this.state.whenTabSelect
+    );
     this.plugins = [servicesPlugin, pushStateLocationPlugin];
   }
-  whenTabChange (tabIndex = 0, route = true, router = defaultRouter) {
+  whenDrawerSelect (drawerIndex = 0) {
+    this.setState({drawerIndex}); 
+    this.props.onDrawerSelect(drawerIndex);
+  }
+  whenDrawerToggle (drawerOpen) {
+    this.setState({drawerOpen: drawerOpen || !this.state.drawerOpen});  
+    this.props.onDrawerToggle(drawerOpen || !this.state.drawerOpen);
+  }
+  whenTabSelect (tabIndex = 0, route = true, router = defaultRouter) {
     if (route) {
       router.stateService.go(this.state.shortName + '.tabs.' + this.state.tabs[tabIndex].name);
     }
     if (tabIndex !== this.state.tabIndex) {
       this.setState({tabIndex}); 
     }
-    this.props.onTabChange(tabIndex);
-  }
-  whenDrawerChange (drawerIndex = 0) {
-    this.setState({drawerIndex}); 
-    this.props.onDrawerChange(drawerIndex);
-  }
-  whenDrawerToggle (drawerOpen) {
-    this.setState({drawerOpen: drawerOpen || !this.state.drawerOpen});  
-    this.props.onDrawerToggle(drawerOpen || !this.state.drawerOpen);
+    this.props.onTabSelect(tabIndex);
   }
   render () {
     return (
@@ -105,9 +115,26 @@ export default class src extends Component {
           states={this.states}
         >
           <UIView
-            className='onlyForProps'
-            style={this.state}
-            test='testProp'
+            render={(App) => {
+              return <App
+                drawerDocked={this.state.drawerDocked}
+                drawerDrag={this.state.drawerDrag}
+                drawerHover={this.state.drawerHover}
+                drawerIndex={this.state.drawerIndex}
+                drawerOpen={this.state.drawerOpen}
+                drawers={this.state.drawers}
+                header={this.state.header}
+                orientation={this.state.orientation}
+                shortName={this.state.shortName}
+                tabIndex={this.state.tabIndex}
+                tabs={this.state.tabs}
+                title={this.state.title}
+                version={this.state.version}
+                whenDrawerSelect={this.whenDrawerSelect}
+                whenDrawerToggle={this.whenDrawerToggle}
+                whenTabSelect={this.whenTabSelect}
+              />;
+            }}
           />
         </UIRouter>
       </MuiThemeProvider>

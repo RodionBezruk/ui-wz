@@ -16,10 +16,14 @@ export const initRoot = (shortName, drawers, header, drawerHeader) => {
     };
     return null;
   });
-  root.header = header && header.prototype && header.prototype.isReactComponent || isValidElement(header) ?
+  root.header = header &&
+    header.prototype &&
+    header.prototype.isReactComponent || isValidElement(header) ?
     {component: header} :
     {component: defaultHeader};
-  root.drawerHeader = drawerHeader && drawerHeader.prototype && drawerHeader.prototype.isReactComponent || isValidElement(drawerHeader) ?
+  root.drawerHeader = drawerHeader &&
+    drawerHeader.prototype &&
+    drawerHeader.prototype.isReactComponent || isValidElement(drawerHeader) ?
     {component: drawerHeader} :
     {component: defaultDrawerHeader};
   return [

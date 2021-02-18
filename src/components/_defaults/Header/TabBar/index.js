@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import './TabBar.css';
-const TabBar = ({onTabClick, tabs}) => {
+const TabBar = ({onTabSelect, tabs}) => {
   return (
     <span>
       {
@@ -9,7 +9,7 @@ const TabBar = ({onTabClick, tabs}) => {
             <button
               key={tab.name}
               onClick={function handleClick () {
-                onTabClick(index);
+                onTabSelect(index);
               }}
               styleName='button'
             >
@@ -26,7 +26,7 @@ const TabBar = ({onTabClick, tabs}) => {
   );
 };
 TabBar.propTypes = {
-  onTabClick: PropTypes.func.isRequired,
+  onTabSelect: PropTypes.func.isRequired,
   tabs: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired).isRequired

@@ -1,18 +1,20 @@
 import React, {PropTypes} from 'react';
 import './DrawerHeader.css';
+import defaults from '../../../defaults';
 const DrawerHeader = ({
-  style: state
+  drawers,
+  onTabSelect
 }) => {
   return (
     <div styleName='wrapper'>
       {
-        state.drawers.length > 1 ?
-        state.drawers.map((drawer, index) => {
+        drawers.length > 1 ?
+        drawers.map((drawer, index) => {
           return (
             <button
               key={drawer.name}
               onClick={function () {
-                return state.onTabClick(index);
+                return onTabSelect(index);
               }}
               styleName='button'
             >
@@ -25,6 +27,13 @@ const DrawerHeader = ({
   );
 };
 DrawerHeader.propTypes = {
-  style: PropTypes.object.isRequired
+  drawers: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired).isRequired,
+  onTabSelect: PropTypes.func.isRequired
+};
+DrawerHeader.defaultProps = {
+  drawers: defaults.drawers,
+  onTabSelect: defaults.onTabSelect
 };
 export default DrawerHeader;

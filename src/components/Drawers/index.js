@@ -10,10 +10,10 @@ const Drawers = ({
   drawers,
   hover,
   open,
+  onSelect,
+  onToggle,
   orientation,
-  selectDrawer,
-  tabs,
-  toggle
+  tabs
 }) => {
   const styles = {
     drawer: {
@@ -51,7 +51,7 @@ const Drawers = ({
       disableSwipeToOpen={!drag}
       docked={docked}
       onRequestChange={function () {
-        toggle();
+        onToggle();
       }}
       open={open}
       openSecondary={orientation === 'right'}
@@ -60,12 +60,12 @@ const Drawers = ({
       width={320}
     >
       <UIView
-        className='onlyForProps'
         name='drawerHeader'
-        style={{
-          currentDrawer,
-          drawers,
-          onTabClick: selectDrawer
+        render={(DrawerHeader) => {
+          return <DrawerHeader
+            drawers={drawers}
+            onTabSelect={onSelect}
+          />;
         }}
       />
       <div style={styles.drawerDirection}>
@@ -74,7 +74,7 @@ const Drawers = ({
             currentDrawer={currentDrawer}
             currentTab={currentTab}
             drawers={drawers}
-            onSwipe={selectDrawer}
+            onSwipe={onSelect}
             tabs={tabs}
           />
         </div>
@@ -91,12 +91,12 @@ Drawers.propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired).isRequired,
   hover: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   orientation: PropTypes.string.isRequired,
-  selectDrawer: PropTypes.func.isRequired,
   tabs: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired
-  }).isRequired).isRequired,
-  toggle: PropTypes.func.isRequired
+  }).isRequired).isRequired
 };
 export default Drawers;

@@ -1,33 +1,42 @@
 import React, {PropTypes} from 'react';
+import defaults from '../../../defaults';
 import DrawerToggle from './DrawerToggle';
 import Title from './Title';
 import TabBar from './TabBar';
 import Auxiliar from './Auxiliar';
 import './Header.css';
 const Header = ({
-  style: state,
-  children
+  children,
+  drawerOpen,
+  onDrawerToggle,
+  onTabSelect,
+  orientation,
+  tabs,
+  tabIndex,
+  title,
+  version
 }) => {
   return (
     <div styleName='wrapper'>
       <span>
         <DrawerToggle
-          toggle={state.whenDrawerToggle}
+          open={drawerOpen}
+          toggle={onDrawerToggle}
         />
         <Title
-          title={state.title}
-          version={state.version}
+          title={title}
+          version={version}
         />
         <TabBar
-          currentTab={state.tabIndex}
-          onTabClick={function (index) {
-            state.whenTabChange(index);
+          currentTab={tabIndex}
+          onTabSelect={function (index) {
+            onTabSelect(index);
           }}
-          tabs={state.tabs}
+          tabs={tabs}
         />
       </span>
       <span>
-        <Auxiliar orientation={state.orientation}>
+        <Auxiliar orientation={orientation}>
           {children}
         </Auxiliar>
       </span>
@@ -36,7 +45,24 @@ const Header = ({
 };
 Header.propTypes = {
   children: PropTypes.object,
-  style: PropTypes.object.isRequired
+  drawerOpen: PropTypes.bool,
+  onDrawerToggle: PropTypes.func,
+  onTabSelect: PropTypes.func,
+  orientation: PropTypes.string,
+  tabIndex: PropTypes.number,
+  tabs: PropTypes.array,
+  title: PropTypes.string,
+  version: PropTypes.string
+};
+Header.defaultProps = {
+  drawerOpen: defaults.drawerOpen,
+  onDrawerToggle: defaults.onDrawerToggle,
+  onTabSelect: defaults.onTabSelect,
+  orientation: defaults.orientation,
+  tabIndex: defaults.tabIndex,
+  tabs: defaults.tabs,
+  title: defaults.title,
+  version: defaults.version
 };
 Header.defaultProps = {
   children: null
