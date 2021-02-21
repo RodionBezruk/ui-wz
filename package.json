@@ -2,7 +2,7 @@
   "name": "ui-router-react-digest",
   "title": "UI-Router React Digest",
   "license": "GPL-3.0",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An autogenerating route component",
   "author": "wallzero @wallzeroblog (http://wallzero.com)",
   "contributors": [
@@ -32,17 +32,19 @@
     "clean": "rm -rf static && rm -rf .cache"
   },
   "devDependencies": {
-    "webpack-digest": "0.3.37",
-    "ui-router-visualizer": "2.0.11"
+    "webpack-digest": "0.3.37"
   },
   "dependencies": {
-    "react": "15.4.2",
-    "react-dom": "15.4.2",
+    "react": "~15.5.4",
+    "react-dom": "~15.5.4",
+    "prop-types": "~15.5.8",
     "ui-router-core": "4.0.0",
     "ui-router-react": "0.4.0",
-    "react-motion": "0.4.7",
-    "react-swipeable-views": "0.10.3",
-    "material-ui": "0.16.7",
+    "ui-router-visualizer": "2.0.11",
+    "ui-router-sticky-states": "1.2.0",
+    "react-motion": "0.5.0",
+    "react-swipeable-views": "0.12.1",
+    "material-ui": "0.17.4",
     "react-tap-event-plugin": "2.0.1"
   },
   "keywords": [

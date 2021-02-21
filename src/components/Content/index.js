@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import {UIView} from 'ui-router-react';
 import defaults from '../../defaults';

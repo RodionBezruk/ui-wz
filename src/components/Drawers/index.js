@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {UIView} from 'ui-router-react';
 import Drawer from 'material-ui/Drawer';
 import DrawerContent from './DrawerContent';

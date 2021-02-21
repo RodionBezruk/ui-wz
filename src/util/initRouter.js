@@ -11,9 +11,7 @@ export const initRoot = (shortName, drawers, header, drawerHeader) => {
     }
   };
   drawers.map((drawer) => {
-    root[drawer.name] = drawer.component || {
-      component: Missing
-    };
+    root[drawer.name] = drawer.component || Missing;
     return null;
   });
   root.header = header &&
@@ -41,18 +39,14 @@ export const initRoot = (shortName, drawers, header, drawerHeader) => {
 export const initTab = (tab, shortName, drawers) => {
   const route = {
     [tab.name]: {
-      component: tab.component
-    } || {
-      component: Missing
+      component: tab.component || Missing
     }
   };
   drawers.map((drawer) => {
     if (drawer.contextual === true) {
       const viewName = tab.name + '_' + drawer.name + '@' + shortName;
       route[viewName] = {
-        component: tab.drawers[drawer.name]
-      } || {
-        component: Missing
+        component: tab.drawers[drawer.name] || Missing
       };
     }
     return null;

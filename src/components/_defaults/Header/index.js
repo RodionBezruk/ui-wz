@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import defaults from '../../../defaults';
 import DrawerToggle from './DrawerToggle';
 import Title from './Title';
