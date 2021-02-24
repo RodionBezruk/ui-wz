@@ -57,6 +57,7 @@ export const initTab = (tab, shortName, drawers) => {
       name: tab.name,
       ...tab.params
     },
+    sticky: true,
     url: '/' + tab.name,
     views: route
   };

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {UIRouter, UIView, servicesPlugin, pushStateLocationPlugin} from 'ui-router-react';
+import {StickyStatesPlugin} from 'ui-router-sticky-states';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {initRoot, initTab, initTransitions} from './util/initRouter';
@@ -85,7 +86,7 @@ export default class src extends Component {
       this.state.tabIndex,
       this.state.whenTabSelect
     );
-    this.plugins = [servicesPlugin, pushStateLocationPlugin];
+    this.plugins = [servicesPlugin, pushStateLocationPlugin, StickyStatesPlugin];
   }
   whenDrawerSelect (drawerIndex = 0) {
     this.setState({drawerIndex}); 
