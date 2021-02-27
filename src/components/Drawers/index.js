@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {UIView} from 'ui-router-react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Drawer from 'material-ui/Drawer';
 import DrawerContent from './DrawerContent';
 const Drawers = ({
@@ -47,40 +48,42 @@ const Drawers = ({
     }
   };
   return (
-    <Drawer
-      containerStyle={styles.drawerContainer}
-      disableSwipeToOpen={!drag}
-      docked={docked}
-      onRequestChange={function () {
-        onToggle();
-      }}
-      open={open}
-      openSecondary={orientation === 'right'}
-      overlayStyle={styles.overlay}
-      style={styles.drawer}
-      width={320}
-    >
-      <UIView
-        name='drawerHeader'
-        render={(DrawerHeader) => {
-          return <DrawerHeader
-            drawers={drawers}
-            onTabSelect={onSelect}
-          />;
+    <MuiThemeProvider>
+      <Drawer
+        containerStyle={styles.drawerContainer}
+        disableSwipeToOpen={!drag}
+        docked={docked}
+        onRequestChange={function () {
+          onToggle();
         }}
-      />
-      <div style={styles.drawerDirection}>
-        <div style={styles.drawerContent}>
-          <DrawerContent
-            currentDrawer={currentDrawer}
-            currentTab={currentTab}
-            drawers={drawers}
-            onSwipe={onSelect}
-            tabs={tabs}
-          />
+        open={open}
+        openSecondary={orientation === 'right'}
+        overlayStyle={styles.overlay}
+        style={styles.drawer}
+        width={320}
+      >
+        <UIView
+          name='drawerHeader'
+          render={(DrawerHeader) => {
+            return <DrawerHeader
+              drawers={drawers}
+              onTabSelect={onSelect}
+            />;
+          }}
+        />
+        <div style={styles.drawerDirection}>
+          <div style={styles.drawerContent}>
+            <DrawerContent
+              currentDrawer={currentDrawer}
+              currentTab={currentTab}
+              drawers={drawers}
+              onSwipe={onSelect}
+              tabs={tabs}
+            />
+          </div>
         </div>
-      </div>
-    </Drawer>
+      </Drawer>
+    </MuiThemeProvider>
   );
 };
 Drawers.propTypes = {

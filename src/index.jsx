@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {UIRouter, UIView, servicesPlugin, pushStateLocationPlugin} from 'ui-router-react';
 import {StickyStatesPlugin} from 'ui-router-sticky-states';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {initRoot, initTab, initTransitions} from './util/initRouter';
 import defaults from './defaults';
@@ -107,39 +106,37 @@ export default class src extends Component {
   }
   render () {
     return (
-      <MuiThemeProvider>
-        <UIRouter
-          config={(router) => {
-            defaultRouter = router;
-            this.config(router);  
+      <UIRouter
+        config={(router) => {
+          defaultRouter = router;
+          this.config(router);  
+        }}
+        plugins={this.plugins}
+        states={this.states}
+      >
+        <UIView
+          render={(App) => {
+            return <App
+              drawerDocked={this.state.drawerDocked}
+              drawerDrag={this.state.drawerDrag}
+              drawerHover={this.state.drawerHover}
+              drawerIndex={this.state.drawerIndex}
+              drawerOpen={this.state.drawerOpen}
+              drawers={this.state.drawers}
+              header={this.state.header}
+              orientation={this.state.orientation}
+              shortName={this.state.shortName}
+              tabIndex={this.state.tabIndex}
+              tabs={this.state.tabs}
+              title={this.state.title}
+              version={this.state.version}
+              whenDrawerSelect={this.whenDrawerSelect}
+              whenDrawerToggle={this.whenDrawerToggle}
+              whenTabSelect={this.whenTabSelect}
+            />;
           }}
-          plugins={this.plugins}
-          states={this.states}
-        >
-          <UIView
-            render={(App) => {
-              return <App
-                drawerDocked={this.state.drawerDocked}
-                drawerDrag={this.state.drawerDrag}
-                drawerHover={this.state.drawerHover}
-                drawerIndex={this.state.drawerIndex}
-                drawerOpen={this.state.drawerOpen}
-                drawers={this.state.drawers}
-                header={this.state.header}
-                orientation={this.state.orientation}
-                shortName={this.state.shortName}
-                tabIndex={this.state.tabIndex}
-                tabs={this.state.tabs}
-                title={this.state.title}
-                version={this.state.version}
-                whenDrawerSelect={this.whenDrawerSelect}
-                whenDrawerToggle={this.whenDrawerToggle}
-                whenTabSelect={this.whenTabSelect}
-              />;
-            }}
-          />
-        </UIRouter>
-      </MuiThemeProvider>
+        />
+      </UIRouter>
     );
   }
 }

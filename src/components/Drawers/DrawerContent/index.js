@@ -21,10 +21,7 @@ const DrawerContent = ({
       {
         drawers.map((drawer, drawerIndex) => {
           return (
-            <div
-              key={drawer.name}
-              styleName={drawerIndex === currentDrawer ? 'currentDrawer' : 'drawer'}
-            >
+            <div key={drawer.name}>
               {
                 drawer.contextual ?
                   <SwipeableViews
